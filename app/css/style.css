@@ -1,0 +1,36 @@
+body {
+  display: flex;
+  font-family: 'Source Sans Pro', sans-serif; }
+
+h1 {
+  color: #FFF;
+  font-weight: 300;
+  font-size: 2rem;
+  padding: 2rem 0; }
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  max-width: 350px;
+  height: 100vh;
+  background: #1E292E; }
+  .sidebar .logo {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 2rem;
+    text-align: center;
+    border-bottom: 3px solid #FFF; }
+  .sidebar nav {
+    margin-top: 2rem;
+    text-transform: uppercase; }
+    .sidebar nav ul li a {
+      display: block;
+      text-decoration: none;
+      color: #FFF;
+      padding: 1rem 2rem;
+      border-left: 3px solid transparent; }
+      .sidebar nav ul li a:hover, .sidebar nav ul li .active {
+        font-weight: bold;
+        color: #28B88B;
+        border-color: #28B88B; }
