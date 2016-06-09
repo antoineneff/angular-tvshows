@@ -1,0 +1,13 @@
+<h2>Popular shows</h2>
+
+<div class="shows" ng-if="vm.shows">
+    <div class="show" ng-repeat="show in vm.shows">
+        <div class="image">
+            <img ng-src="{{ show.image }}" alt="photo">
+        </div>
+        <div class="infos">
+            <h3>{{ show.title }}</h3>
+            <p>Followers : {{ show.followers }}</p>
+        </div>
+    </div>
+</div>

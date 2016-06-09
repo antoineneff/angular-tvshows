@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="showsApp">
     <head>
         <meta charset="utf-8">
         <title>Tv Shows app</title>
@@ -7,6 +7,16 @@
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/css/reset.css">
         <link rel="stylesheet" href="/css/style.css">
+
+        <!-- Angular sources -->
+        <script src="https://code.angularjs.org/1.5.6/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.6/angular-route.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+
+        <!-- App sources -->
+        <script src="js/app.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/services.js"></script>
     </head>
     <body>
 
@@ -15,134 +25,28 @@
                 <h1>ShowsApp</h1>
             </div>
 
-            <div class="authentication">
-                <div class="button">Login</div>
+            <div class="authentication" ng-controller="AuthCtrl as vm">
+                <div ng-if="vm.connected === false" class="button" ng-click="vm.login()">Login</div>
+
+                <div ng-if="vm.connected === true" class="profile">
+                    <p>{{ vm.getUserLogin() }} - {{ vm.getUserXp() }} xp</p>
+                    <button ng-click="vm.logout()">Logout</button>
+                </div>
             </div>
 
-            <nav>
+            <nav ng-controller="NavCtrl as vm">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Latest episodes</a></li>
-                    <li><a href="#" class="active">Popular shows</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="home" ng-class="{ active: vm.isActive('/home')}">Home</a></li>
+                    <li><a href="episodes" ng-class="{ active: vm.isActive('/episodes')}">Latest episodes</a></li>
+                    <li><a href="shows" ng-class="{ active: vm.isActive('/shows')}">Popular shows</a></li>
+                    <li><a href="categories" ng-class="{ active: vm.isActive('/categories')}">Categories</a></li>
+                    <li><a href="search" ng-class="{ active: vm.isActive('/search')}">Search</a></li>
                 </ul>
             </nav>
         </div>
 
-        <div class="main">
-            <h2>Popular shows</h2>
+        <div class="main" ng-view>
 
-            <div class="shows">
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-                <div class="show">
-                    <div class="image">
-                        <img src="http://placehold.it/250x150">
-                    </div>
-                    <div class="infos">
-                        <h3>The walking dead</h3>
-                        <p>Genre - Genre - Genre</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </body>
