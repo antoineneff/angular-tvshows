@@ -8,6 +8,27 @@ h1 {
   font-size: 2rem;
   padding: 2rem 0; }
 
+a {
+  text-decoration: none;
+  outline: 0; }
+
+.button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #FFF;
+  color: #1E292E;
+  border-radius: 4px;
+  cursor: pointer; }
+  .button:hover {
+    opacity: 0.5;
+    transition: 0.3s; }
+  .button.green {
+    color: #FFF;
+    background-color: #28B88B; }
+  .button.dark-blue {
+    color: #FFF;
+    background-color: #1E292E; }
+
 .sidebar {
   display: flex;
   position: fixed;
@@ -25,14 +46,11 @@ h1 {
     margin-top: 2rem;
     text-transform: uppercase; }
     .sidebar nav ul li a {
-      outline: 0;
       display: block;
-      text-decoration: none;
       color: #FFF;
       padding: 1rem 2rem;
       border-left: 3px solid transparent; }
       .sidebar nav ul li a:hover, .sidebar nav ul li .active {
-        font-weight: bold;
         color: #28B88B;
         border-color: #28B88B;
         transition: 0.2s; }
@@ -41,17 +59,6 @@ h1 {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid #253238; }
-    .sidebar .authentication .button {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background-color: #28B88B;
-      color: #FFF;
-      text-transform: uppercase;
-      border-radius: 3px;
-      cursor: pointer; }
-      .sidebar .authentication .button:hover {
-        background-color: rgba(40, 184, 139, 0.5);
-        transition: 0.2s; }
     .sidebar .authentication .profile {
       display: flex;
       flex-direction: column;
@@ -63,12 +70,101 @@ h1 {
 .main {
   margin-left: 300px;
   box-sizing: border-box;
-  padding: 2rem; }
+  padding: 2rem;
+  width: 100%; }
   .main h2 {
     font-size: 2rem;
     font-weight: 200;
     color: #1E292E;
     margin-bottom: 2rem; }
+  .main .show-single {
+    display: flex; }
+    .main .show-single img {
+      max-height: calc(100vh - 4rem);
+      height: 500px;
+      width: 340px; }
+    .main .show-single .infos {
+      margin-left: 2rem; }
+      .main .show-single .infos .absolute {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        margin: 2rem 2rem 0 0; }
+      .main .show-single .infos h2 {
+        margin: 0; }
+      .main .show-single .infos p {
+        font-weight: 200;
+        line-height: 1.5rem;
+        margin: 1rem 0; }
+        .main .show-single .infos p.seasons {
+          margin: 0;
+          font-style: italic; }
+        .main .show-single .infos p .bold {
+          font-weight: 400; }
+  .main .show-episodes {
+    margin-top: 2rem; }
+    .main .show-episodes .season {
+      margin-bottom: 1rem; }
+      .main .show-episodes .season h3 {
+        display: inline-block;
+        font-size: 1.5rem;
+        font-weight: 400;
+        cursor: pointer; }
+        .main .show-episodes .season h3 i {
+          margin-left: 0.5rem;
+          color: #28B88B; }
+      .main .show-episodes .season .season-episodes {
+        width: 100%;
+        border-radius: 4px;
+        border-collapse: collapse;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 1.25rem; }
+        .main .show-episodes .season .season-episodes th {
+          color: #D5DDE5;
+          background: #1E292E;
+          border-bottom: 4px solid #9ea7af;
+          border-right: 1px solid #343a45;
+          padding: 1rem;
+          vertical-align: middle;
+          font-weight: 400; }
+          .main .show-episodes .season .season-episodes th:first-child {
+            border-top-left-radius: 4px; }
+          .main .show-episodes .season .season-episodes th:last-child {
+            border-top-right-radius: 4px;
+            border-right: none; }
+        .main .show-episodes .season .season-episodes tr {
+          border-top: 1px solid #C1C3D1;
+          border-bottom-: 1px solid #C1C3D1;
+          color: #253238; }
+          .main .show-episodes .season .season-episodes tr:first-child {
+            border-top: none; }
+          .main .show-episodes .season .season-episodes tr:last-child {
+            border-bottom: none; }
+          .main .show-episodes .season .season-episodes tr:nth-child(odd) td {
+            background: #EBEBEB; }
+          .main .show-episodes .season .season-episodes tr:last-child td:first-child {
+            border-bottom-left-radius: 3px; }
+          .main .show-episodes .season .season-episodes tr:last-child td:last-child {
+            border-bottom-right-radius: 3px; }
+        .main .show-episodes .season .season-episodes td {
+          background: #FFFFFF;
+          padding: 1rem;
+          vertical-align: middle;
+          border-right: 1px solid #C1C3D1;
+          text-align: center; }
+          .main .show-episodes .season .season-episodes td:last-child {
+            border-right: 0px; }
+          .main .show-episodes .season .season-episodes td a {
+            color: inherit; }
+            .main .show-episodes .season .season-episodes td a:hover, .main .show-episodes .season .season-episodes td .sidebar nav ul li .active, .sidebar nav ul li .main .show-episodes .season .season-episodes td .active {
+              text-decoration: underline; }
+          .main .show-episodes .season .season-episodes td i {
+            margin-right: 1rem; }
+            .main .show-episodes .season .season-episodes td i.fa-eye {
+              color: #28B88B; }
+            .main .show-episodes .season .season-episodes td i.fa-eye-slash {
+              color: #F64744; }
   .main .shows {
     display: flex;
     flex-wrap: wrap; }
@@ -78,13 +174,42 @@ h1 {
       border-radius: 3px;
       overflow: hidden;
       margin-right: 2rem;
-      margin-bottom: 2rem; }
+      margin-bottom: 2rem;
+      text-decoration: none; }
+      .main .shows .show:hover {
+        border-color: #28B88B;
+        transition: 0.3s; }
+      .main .shows .show .image img {
+        max-width: 100%; }
       .main .shows .show .infos {
         padding: 1rem; }
         .main .shows .show .infos h3 {
           font-weight: bold;
-          color: #1E292E;
-          margin-bottom: 1rem; }
+          color: #1E292E; }
         .main .shows .show .infos p {
           font-weight: 200;
-          color: #AAA; }
+          color: #000; }
+          .main .shows .show .infos p.followers {
+            color: #888; }
+          .main .shows .show .infos p.total {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 0.5rem; }
+  .main .episode-single {
+    display: flex; }
+    .main .episode-single img {
+      height: 250px;
+      width: 250px; }
+    .main .episode-single .infos {
+      margin-left: 2rem; }
+      .main .episode-single .infos h2 {
+        margin: 0; }
+      .main .episode-single .infos p {
+        font-weight: 200;
+        line-height: 1.5rem;
+        margin: 1rem 0; }
+        .main .episode-single .infos p.show {
+          margin: 0;
+          font-style: italic; }
+        .main .episode-single .infos p .bold {
+          font-weight: 400; }

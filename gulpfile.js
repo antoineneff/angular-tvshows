@@ -1,14 +1,18 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
-var historyApiFallback = require('connect-history-api-fallback');
+var modRewrite  = require('connect-modrewrite');
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function () {
     browserSync.init({
         server: {
             baseDir: 'app',
-            middleware: [ historyApiFallback() ]
+            middleware: [
+                modRewrite([
+                    '!\\.\\w+$ /index.html [L]'
+                ])
+            ]
         }
     });
 });

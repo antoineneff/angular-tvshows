@@ -6,10 +6,19 @@
         .factory('Shows', Shows)
         .factory('Users', Users);
 
-    function Shows($http) {
+    function Shows($http, Users) {
         var service = {
             popular: popular,
-            image: image
+            info: info,
+            follow: follow,
+            unfollow: unfollow,
+            archive: archive,
+            unarchive: unarchive,
+            episodes: episodes,
+            episode: episode,
+            episodeImg: episodeImg,
+            episodeWatched: episodeWatched,
+            episodeNotWatched: episodeNotWatched
         };
         return service;
 
@@ -29,8 +38,154 @@
             });
         }
 
-        function image(idShow) {
-            return 'https://api.betaseries.com/pictures/shows?v=2.4&key=bf2f68a35ea9&height=150&id=' + idShow;
+        function info(showId) {
+            return $http({
+                method: 'GET',
+                url: 'https://api.betaseries.com/shows/display',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': showId,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function follow(showId) {
+            return $http({
+                method: 'POST',
+                url: 'https://api.betaseries.com/shows/show',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': showId,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function unfollow(showId) {
+            return $http({
+                method: 'DELETE',
+                url: 'https://api.betaseries.com/shows/show',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': showId,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function archive(showId) {
+            return $http({
+                method: 'POST',
+                url: 'https://api.betaseries.com/shows/archive',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': showId,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function unarchive(showId) {
+            return $http({
+                method: 'DELETE',
+                url: 'https://api.betaseries.com/shows/archive',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': showId,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function episodes(showId, seasonNumber) {
+            return $http({
+                method: 'GET',
+                url: 'https://api.betaseries.com/shows/episodes',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': showId,
+                    'season': seasonNumber,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function episode(episodeId) {
+            return $http({
+                method: 'GET',
+                url: 'https://api.betaseries.com/episodes/display',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': episodeId,
+                    'token': Users.getToken()
+                }
+            });
+        }
+
+        function episodeImg(episodeId) {
+            return 'https://api.betaseries.com/pictures/episodes?v=2.4&key=bf2f68a35ea9&id=' + episodeId;
+        }
+
+        function episodeWatched(episodeId) {
+            return $http({
+                method: 'POST',
+                url: 'https://api.betaseries.com/episodes/watched',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': episodeId,
+                    'token': Users.getToken(),
+                    'bulk': true
+                }
+            });
+        }
+
+        function episodeNotWatched(episodeId) {
+            return $http({
+                method: 'DELETE',
+                url: 'https://api.betaseries.com/episodes/watched',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'id': episodeId,
+                    'token': Users.getToken()
+                }
+            });
         }
     }
 
@@ -39,8 +194,10 @@
             authorize: authorize,
             oauth: oauth,
             logout: logout,
+            getToken: getToken,
             getLogin: getLogin,
-            getXp: getXp
+            getXp: getXp,
+            shows: shows
         };
         return service;
 
@@ -83,9 +240,10 @@
                 user.login = response.data.member.login;
                 user.xp = response.data.member.xp;
                 sessionStorage.showsApp = JSON.stringify(user);
+
                 $location.url(localStorage.previousUrl);
+
                 localStorage.clear();
-                $window.location.reload();
             });
         }
 
@@ -94,12 +252,38 @@
             $window.location.reload();
         }
 
+        function getToken() {
+            if (sessionStorage.showsApp !== undefined) {
+                return JSON.parse(sessionStorage.showsApp).token;
+            }
+        }
+
         function getLogin() {
-            return JSON.parse(sessionStorage.showsApp).login;
+            if (sessionStorage.showsApp !== undefined) {
+                return JSON.parse(sessionStorage.showsApp).login;
+            }
         }
 
         function getXp() {
-            return JSON.parse(sessionStorage.showsApp).xp;
+            if (sessionStorage.showsApp !== undefined) {
+                return JSON.parse(sessionStorage.showsApp).xp;
+            }
+        }
+
+        function shows() {
+            return $http({
+                method: 'GET',
+                url: 'https://api.betaseries.com/members/infos',
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost'
+                },
+                params: {
+                    'v': '2.4',
+                    'key': 'bf2f68a35ea9',
+                    'token': getToken(),
+                    'only': 'shows'
+                }
+            })
         }
     }
 })();

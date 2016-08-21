@@ -1,0 +1,57 @@
+<div class="show-single" ng-if="vm.show">
+    <img ng-src="{{ vm.show.images.poster }}" alt="banner" />
+    <div class="infos">
+        <h2>{{ vm.show.title }}</h2>
+        <p class="seasons">{{ vm.show.seasons }} season<span ng-if="vm.show.seasons > 1">s</span>, {{ vm.show.episodes }} episode<span ng-if="vm.show.episodes > 1">s</span></p>
+        <p><span class="bold">Episode length :</span> {{ vm.show.length }} minutes</p>
+        <p><span class="bold">Note :</span> {{ vm.show.notes.mean }} /5</p>
+        <p><span class="bold">Genre<span ng-if="vm.show.genres.length > 1">s</span> :</span> <span ng-repeat="genre in vm.show.genres">{{ genre }}{{ $last ? '' : ', '}}</span></p>
+        <p><span class="bold">Description :</span> {{ vm.show.description }}</p>
+        <div class="absolute">
+            <div ng-hide="vm.show.in_account" class="button green" ng-click="vm.follow()">Follow</div>
+            <div ng-show="vm.show.in_account">
+                <div class="button dark-blue" ng-click="vm.unfollow()">Unfollow</div>
+                <div class="button green" ng-hide="vm.show.user.archived" ng-click="vm.archive()">Archive</div>
+                <div class="button dark-blue" ng-show="vm.show.user.archived" ng-click="vm.unarchive()">Unarchive</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="show-episodes" ng-if="vm.show">
+    <h2>Episodes</h2>
+
+    <div class="season" ng-repeat="season in vm.show.seasons_details" ng-if="season.number <= vm.show.seasons">
+        <h3 ng-click="vm.episodes(season.number, true)">
+            Season {{ season.number }}
+            <i class="fa fa-caret-down" aria-hidden="true" ng-hide="vm.season === season.number"></i>
+            <i class="fa fa-caret-up" aria-hidden="true" ng-show="vm.season === season.number"></i>
+        </h3>
+        <table class="season-episodes" ng-show="vm.season === season.number">
+            <thead>
+                <tr>
+                    <th>Episode</th>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Watched</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="episode in vm.episodes['season_' + season.number]" ng-if="episode.global <= vm.show.episodes">
+                    <td>{{ episode.episode }}</td>
+                    <td>{{ episode.date }}</td>
+                    <td><a ng-href="episodes/{{ episode.id }}">{{ episode.title }}</a></td>
+                    <td>
+                        <div ng-show="episode.user.seen">
+                            <i class="fa fa-eye" aria-hidden="true"></i><a href="" ng-click="vm.episodeNotWatched(episode.id, episode.code)">Mark as not watched</a>
+                        </div>
+                        <div ng-hide="episode.user.seen">
+                            <i class="fa fa-eye-slash" aria-hidden="true"></i><a href="" ng-click="vm.episodeWatched(episode.id, episode.code)">Mark as watched</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -4,7 +4,7 @@
     angular
         .module('showsApp', [
             'ngRoute',
-            'ui.router',
+            'ngAlertify',
             'showsApp.controllers',
             'showsApp.services'
         ])
@@ -12,37 +12,45 @@
 
     function config($locationProvider, $routeProvider) {
         $routeProvider
-            .when('/home', {
+            .when('/shows', {
                 templateUrl: 'templates/home.html',
-                controller: 'HomeCtrl'
+                controller: 'HomeCtrl',
+                controllerAs: 'vm'
             })
             .when('/oauth', {
                 controller: 'AuthCtrl'
+            })
+            .when('/shows/:showId', {
+                templateUrl: '../templates/show.html',
+                controller: 'ShowCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/myshows', {
+                templateUrl: 'templates/myshows.html',
+                controller: 'MyShowsCtrl',
+                controllerAs: 'vm'
             })
             .when('/episodes', {
                 templateUrl: 'templates/episodes.html',
                 controller: 'EpisodesCtrl'
             })
-            .when('/shows', {
-                templateUrl: 'templates/shows.html',
-                controller: 'ShowsCtrl',
+            .when('/episodes/:episodeId', {
+                templateUrl: '../templates/episode.html',
+                controller: 'EpisodeCtrl',
                 controllerAs: 'vm'
-            })
-            .when('/categories', {
-                templateUrl: 'templates/categories.html',
-                controller: 'CategoriesCtrl'
             })
             .when('/search', {
                 templateUrl: 'templates/search.html',
                 controller: 'SearchCtrl'
             })
 
-            .otherwise('/home');
+            .otherwise('/shows');
 
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
+
     }
 
 })();

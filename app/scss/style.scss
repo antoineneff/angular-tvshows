@@ -14,6 +14,35 @@ h1 {
     padding: 2rem 0;
 }
 
+a {
+    text-decoration: none;
+    outline: 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #FFF;
+    color: $dark-blue;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.5;
+        transition: 0.3s;
+    }
+
+    &.green {
+        color: #FFF;
+        background-color: $green;
+    }
+
+    &.dark-blue {
+        color: #FFF;
+        background-color: $dark-blue;
+    }
+}
+
 .sidebar {
     display: flex;
     position: fixed;
@@ -37,15 +66,12 @@ h1 {
         ul {
             li {
                 a {
-                    outline: 0;
                     display: block;
-                    text-decoration: none;
                     color: #FFF;
                     padding: 1rem 2rem;
                     border-left: 3px solid transparent;
 
                     &:hover {
-                        font-weight: bold;
                         color: $green;
                         border-color: $green;
                         transition: 0.2s;
@@ -65,21 +91,6 @@ h1 {
         justify-content: center;
         border-bottom: 1px solid $dark-blue-lighten;
 
-        .button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: $green;
-            color: #FFF;
-            text-transform: uppercase;
-            border-radius: 3px;
-            cursor: pointer;
-
-            &:hover {
-                background-color: transparentize($green, 0.5);
-                transition: 0.2s;
-            }
-        }
-
         .profile {
             display: flex;
             flex-direction: column;
@@ -97,12 +108,162 @@ h1 {
     margin-left: 300px;
     box-sizing: border-box;
     padding: 2rem;
+    width: 100%;
 
     h2 {
         font-size: 2rem;
         font-weight: 200;
         color: $dark-blue;
         margin-bottom: 2rem;
+    }
+
+    .show-single {
+        display: flex;
+
+        img {
+            max-height: calc(100vh - 4rem);
+            height: 500px;
+            width: 340px;
+        }
+
+        .infos {
+            margin-left: 2rem;
+
+            .absolute {
+                position: absolute;
+                right: 0px;
+                top: 0px;
+                margin: 2rem 2rem 0 0;
+            }
+
+            h2 {
+                margin: 0;
+            }
+
+            p {
+                font-weight: 200;
+                line-height: 1.5rem;
+                margin: 1rem 0;
+
+                &.seasons {
+                    margin: 0;
+                    font-style: italic;
+                }
+
+                .bold {
+                    font-weight: 400;
+                }
+            }
+        }
+
+    }
+
+    .show-episodes {
+        margin-top: 2rem;
+
+        .season {
+            margin-bottom: 1rem;
+
+            h3 {
+                display: inline-block;
+                font-size: 1.5rem;
+                font-weight: 400;
+                cursor: pointer;
+
+                i {
+                    margin-left: 0.5rem;
+                    color: $green;
+                }
+            }
+
+            .season-episodes {
+                width: 100%;
+                border-radius: 4px;
+                border-collapse: collapse;
+                padding: 1rem;
+                margin-top: 1rem;
+                font-size: 1.25rem;
+
+                th {
+                    color: #D5DDE5;
+                    background: $dark-blue;
+                    border-bottom: 4px solid #9ea7af;
+                    border-right: 1px solid #343a45;
+                    padding: 1rem;
+                    vertical-align: middle;
+                    font-weight: 400;
+
+                    &:first-child {
+                        border-top-left-radius: 4px;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: 4px;
+                        border-right: none;
+                    }
+                }
+
+                tr {
+                    border-top: 1px solid #C1C3D1;
+                    border-bottom-: 1px solid #C1C3D1;
+                    color: $dark-blue-lighten;
+
+                    &:first-child {
+                        border-top: none;
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    &:nth-child(odd) td {
+                        background: #EBEBEB;
+                    }
+
+                    &:last-child td:first-child {
+                        border-bottom-left-radius:3px;
+                    }
+
+                    &:last-child td:last-child {
+                        border-bottom-right-radius:3px;
+                    }
+                }
+
+
+                td {
+                    background: #FFFFFF;
+                    padding: 1rem;
+                    vertical-align: middle;
+                    border-right: 1px solid #C1C3D1;
+                    text-align: center;
+
+                    &:last-child {
+                        border-right: 0px;
+                    }
+
+                    a {
+                        color: inherit;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    i {
+                        margin-right: 1rem;
+
+                        &.fa-eye {
+                            color: $green;
+                        }
+
+                        &.fa-eye-slash {
+                            color: #F64744;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     .shows {
@@ -117,6 +278,18 @@ h1 {
             overflow: hidden;
             margin-right: 2rem;
             margin-bottom: 2rem;
+            text-decoration: none;
+
+            &:hover {
+                border-color: $green;
+                transition: 0.3s;
+            }
+
+            .image {
+                img {
+                    max-width: 100%;
+                }
+            }
 
             .infos {
                 padding: 1rem;
@@ -124,12 +297,53 @@ h1 {
                 h3 {
                     font-weight: bold;
                     color: $dark-blue;
-                    margin-bottom: 1rem;
                 }
 
                 p {
                     font-weight: 200;
-                    color: #AAA;
+                    color: #000;
+
+                    &.followers {
+                        color: #888;
+                    }
+
+                    &.total {
+                        font-style: italic;
+                        color: #888;
+                        margin-bottom: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .episode-single {
+        display: flex;
+
+        img {
+            height: 250px;
+            width: 250px;
+        }
+
+        .infos {
+            margin-left: 2rem;
+
+            h2 {
+                margin: 0;
+            }
+
+            p {
+                font-weight: 200;
+                line-height: 1.5rem;
+                margin: 1rem 0;
+
+                &.show {
+                    margin: 0;
+                    font-style: italic;
+                }
+
+                .bold {
+                    font-weight: 400;
                 }
             }
         }

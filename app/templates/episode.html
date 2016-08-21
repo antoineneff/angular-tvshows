@@ -1,0 +1,14 @@
+<div class="episode-single" ng-if="vm.episode">
+    <img ng-src="{{ vm.episode.image }}" alt="picture" />
+    <div class="infos">
+        <h2>{{ vm.episode.title }}</h2>
+        <p class="show">{{ vm.episode.show.title }}</p>
+        <p><span class="bold">Date :</span> {{ vm.episode.date }}</p>
+        <p><span class="bold">Note :</span> {{ vm.episode.note.mean }} / 5</p>
+        <p><span class="bold">Description :</span> {{ vm.episode.description }}</p>
+    </div>
+</div>
+
+<div class="eisode-comments">
+    <h2>Comments</h2>
+</div>

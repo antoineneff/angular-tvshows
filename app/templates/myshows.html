@@ -1,0 +1,59 @@
+<h2>My shows</h2>
+
+<div class="shows" ng-if="vm.shows">
+    <a class="show" ng-repeat="show in vm.shows" ng-if="show.user.archived === false" ng-href="shows/{{ show.id }}">
+        <div class="image">
+            <img ng-src="{{ show.images.box }}" alt="banner">
+        </div>
+        <div class="infos">
+            <h3>{{ show.title }}</h3>
+            <p class="total">{{ show.seasons }} seasons, {{ show.episodes }} episodes</p>
+            <p>Episodes to watch : {{ show.user.remaining }}</p>
+        </div>
+    </a>
+</div>
+
+<h2>Archived shows</h2>
+
+<div class="shows" ng-if="vm.shows">
+    <a class="show" ng-repeat="show in vm.shows" ng-if="show.user.archived === true && show.user.remaining > 0" ng-href="shows/{{ show.id }}">
+        <div class="image">
+            <img src="{{ show.images.box }}" alt="photo">
+        </div>
+        <div class="infos">
+            <h3>{{ show.title }}</h3>
+            <p class="total">{{ show.seasons }} seasons, {{ show.episodes }} episodes</p>
+            <p>Episodes to watch : {{ show.user.remaining }}</p>
+        </div>
+    </a>
+</div>
+
+<h2>Archived and finished shows</h2>
+
+<div class="shows" ng-if="vm.shows">
+    <a class="show" ng-repeat="show in vm.shows" ng-if="show.user.archived === true && show.user.remaining == 0" ng-href="shows/{{ show.id }}">
+        <div class="image">
+            <img src="{{ show.images.box }}" alt="photo">
+        </div>
+        <div class="infos">
+            <h3>{{ show.title }}</h3>
+            <p class="total">{{ show.seasons }} seasons, {{ show.episodes }} episodes</p>
+            <p>{{ show.status }}</p>
+        </div>
+    </a>
+</div>
+
+<h2>Archived and not started shows</h2>
+
+<div class="shows" ng-if="vm.shows">
+    <a class="show" ng-repeat="show in vm.shows" ng-if="show.user.archived === true && show.user.remaining == show.episodes" ng-href="shows/{{ show.id }}">
+        <div class="image">
+            <img src="{{ show.images.box }}" alt="photo">
+        </div>
+        <div class="infos">
+            <h3>{{ show.title }}</h3>
+            <p class="total">{{ show.seasons }} seasons, {{ show.episodes }} episodes</p>
+            <p>Episodes to watch : {{ show.user.remaining }}</p>
+        </div>
+    </a>
+</div>
